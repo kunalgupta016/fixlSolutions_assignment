@@ -1,11 +1,20 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 
+const isLocalhost =
+  typeof window !== "undefined" &&
+  ["localhost", "127.0.0.1"].includes(window.location.hostname);
+
+const resolvedApiBaseUrl =
+  import.meta.env.VITE_API_BASE_URL ||
+  (isLocalhost
+    ? "http://localhost:5000/api"
+    : "https://fixlsolutions-assignment.onrender.com/api");
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api",
+  baseURL: resolvedApiBaseUrl,
   withCredentials: true, // Send HTTPOnly cookies automatically
 });
-
 // Request Interceptor
 api.interceptors.request.use(
   (config) => {

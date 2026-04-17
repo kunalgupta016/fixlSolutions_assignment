@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import api from "../../services/api";
+import api, { setStoredToken } from "../../services/api";
 
 const AuthContext = createContext(null);
 
@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
       setUser(response.data.user);
       setIsAuthenticated(true);
     } catch (error) {
+      setStoredToken(null);
       setUser(null);
       setIsAuthenticated(false);
     } finally {
@@ -38,6 +39,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     const response = await api.post("/auth/login", credentials);
+    setStoredToken(response.data.token);
     setUser(response.data.user);
     setIsAuthenticated(true);
     return response.data.user;
@@ -45,6 +47,7 @@ export const AuthProvider = ({ children }) => {
 
   const signup = async (data) => {
     const response = await api.post("/auth/register", data);
+    setStoredToken(response.data.token);
     setUser(response.data.user);
     setIsAuthenticated(true);
     return response.data.user;
@@ -54,6 +57,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await api.post("/auth/logout");
     } finally {
+      setStoredToken(null);
       setUser(null);
       setIsAuthenticated(false);
     }

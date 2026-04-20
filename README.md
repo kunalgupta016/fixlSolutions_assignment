@@ -4,6 +4,9 @@
 - Frontend URL: `https://fixl-solutions-assignment.vercel.app`
 - Backend URL: `https://fixlsolutions-assignment.onrender.com`
 
+## Vercel Refresh Fix
+For the Vite + React frontend, direct refresh on routes like `/login`, `/dashboard`, or `/admin` requires a Vercel SPA rewrite. This project includes `frontend/vercel.json` so all frontend routes fall back to `index.html` during deployment.
+
 ## Project Overview
 This project is an Employee Leave and Attendance Management System built for HR workflow automation. It helps organizations manage employee attendance, leave applications, approvals, and monthly reporting from a single platform.
 
